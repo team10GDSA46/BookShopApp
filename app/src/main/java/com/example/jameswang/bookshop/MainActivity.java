@@ -2,12 +2,10 @@ package com.example.jameswang.bookshop;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -26,7 +24,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         setContentView(R.layout.activity_main);
         searchBoxText = (EditText) findViewById(R.id.searchBox);
         searchBoxText.addTextChangedListener(searchBoxWatcher);
-        setUpListView(searchBoxText.getText().toString()).setOnItemClickListener(this);
+        setUpListView(searchBoxText.getText().toString());
+        ListView lv = (ListView) findViewById(R.id.listView1);
+        lv.setOnItemClickListener(this);
     }
     private final TextWatcher searchBoxWatcher = new TextWatcher() {
         @Override
@@ -41,21 +41,36 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         @Override
         public void afterTextChanged(Editable editable) {
-            setUpListView(searchBoxText.getText().toString()).setOnItemClickListener(MainActivity.this);
-            if (Book.bookList(searchBoxText.getText().toString()).isEmpty()) {
-                Toast t = Toast.makeText(MainActivity.this, "No Books Found", Toast.LENGTH_SHORT);
-                t.show();
-            }
+            setUpListView(searchBoxText.getText().toString());
+            new AsyncTask<String, Void, List<Book>>() {
+                @Override
+                protected List<Book> doInBackground(String... params) {
+                    return Book.bookList(params[0]);
+                }
+                @Override
+                protected void onPostExecute(List<Book> result) {
+                    if (result.isEmpty()) {
+                        Toast t = Toast.makeText(MainActivity.this, "No Books Found", Toast.LENGTH_SHORT);
+                        t.show();
+                    }
+                }
+            }.execute(searchBoxText.getText().toString());
         }
     };
 
-    public ListView setUpListView(String searchtxt){
-        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX);
-        List<Book> books = Book.bookList(searchtxt);
-        MyBookAdapter adapter = new MyBookAdapter(this, R.layout.row, books);
-        ListView lv = (ListView) findViewById(R.id.listView1);
-        lv.setAdapter(adapter);
-        return lv;
+    public void setUpListView(String searchtxt){
+        new AsyncTask<String, Void, List<Book>>() {
+            @Override
+            protected List<Book> doInBackground(String... params) {
+                return Book.bookList(params[0]);
+            }
+            @Override
+            protected void onPostExecute(List<Book> result) {
+                MyBookAdapter adapter = new MyBookAdapter(MainActivity.this, R.layout.row, result);
+                ListView lv = (ListView) findViewById(R.id.listView1);
+                lv.setAdapter(adapter);
+            }
+        }.execute(searchtxt);
     }
 
     @Override
@@ -63,9 +78,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Book book = (Book) av.getAdapter().getItem(position);
         Intent i = new Intent(this,BookDetails.class);
         i.putExtra("BookID",book.get("BookID"));
-        i.putExtra("Title",book.get("Title"));
-
-        Log.i(">>>>>>>>>>",book.get("BookID"));
+        i.putExtra("ISBN",book.get("ISBN"));
         startActivity(i);
     }
 }

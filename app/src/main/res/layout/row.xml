@@ -13,20 +13,17 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView"
             style="@android:style/TextAppearance.Medium"/>
 
         <TextView
             android:id="@+id/author"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="TextView" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/bookimage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:src="@android:drawable/btn_star_big_on" />
+        android:layout_weight="3"/>
 </LinearLayout>

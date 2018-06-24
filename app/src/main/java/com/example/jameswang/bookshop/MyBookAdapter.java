@@ -2,7 +2,8 @@ package com.example.jameswang.bookshop;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class MyBookAdapter extends ArrayAdapter<Book> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(resource, null);
+        final View v = inflater.inflate(resource, null);
         String title = items.get(position).get("Title");
         if (title != null) {
             TextView e = (TextView) v.findViewById(R.id.title);
@@ -37,11 +38,22 @@ public class MyBookAdapter extends ArrayAdapter<Book> {
         if (author != null) {
             TextView e = (TextView) v.findViewById(R.id.author);
             e.setText(author);
+
         }
         String ISBN = items.get(position).get("ISBN");
         if (ISBN != null) {
-            ImageView image = (ImageView) v.findViewById(R.id.bookimage);
-            image.setImageBitmap(Book.getPhoto(true, ISBN));
+
+            new AsyncTask<String, Void,Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(String... params) {
+                    return Book.getPhoto(params[0]);
+                }
+                @Override
+                protected void onPostExecute(Bitmap result) {
+                    ImageView image = (ImageView) v.findViewById(R.id.bookimage);
+                    image.setImageBitmap(result);
+                }
+            }.execute(ISBN);
         }
         return v;
     }

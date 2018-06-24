@@ -2,6 +2,7 @@ package com.example.jameswang.bookshop;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -64,10 +65,12 @@ public class Book extends HashMap<String,String> {
     public static List<Book> bookList(String searchText) {
         List<Book> list = new ArrayList<Book>();
         JSONArray c;
+        String httpText;
         if(searchText.isEmpty()){
             c = JSONParser.getJSONArrayFromUrl(baseURL + "AllBooks");
         }else {
-            c = JSONParser.getJSONArrayFromUrl(baseURL + "SearchBook/" + searchText.trim().replace(" ","%20"));
+            String urlEncoded = baseURL + "SearchBook/?q=" + Uri.encode(searchText);
+            c = JSONParser.getJSONArrayFromUrl(urlEncoded);
         }
         try {
             for (int i =0; i<c.length(); i++) {
@@ -82,10 +85,9 @@ public class Book extends HashMap<String,String> {
         return(list);
     }
 
-    public static Bitmap getPhoto(boolean thumbnail, String ISBN) {
+    public static Bitmap getPhoto(String ISBN) {
         try {
-            URL url = (thumbnail ? new URL(String.format("%s%s.jpg",imageURL, ISBN)):
-                    new URL(String.format("%s%s.jpg",imageURL, ISBN)));
+            URL url = new URL(String.format("%s%s.jpg",imageURL, ISBN));
             URLConnection conn = url.openConnection();
             InputStream ins = conn.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(ins);
@@ -96,5 +98,4 @@ public class Book extends HashMap<String,String> {
         }
         return(null);
     }
-
 }
