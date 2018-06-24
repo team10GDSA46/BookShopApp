@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="311dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/titleInfo"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/author"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="311dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Author"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/authorInfo"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/isbn"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="311dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ISBN"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/isbnInfo"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/price"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="311dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/priceInfo"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+
+</LinearLayout>
