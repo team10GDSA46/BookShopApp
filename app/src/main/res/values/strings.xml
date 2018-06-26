@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">BookShop</string>
-    <string name="searchTitleLabel">Search Title :</string>
+    <string name="searchTitleLabel">Search Title</string>
     <string name="Title">Title :</string>
     <string name="Author">Author :</string>
     <string name="ISBN">ISBN :</string>
     <string name="Price">Price :</string>
     <string name="Intro">Introduction :</string>
+    <string name="Edit">Change Me</string>
+    <string name="BookID">Book ID</string>
+    <string name="Stock">Stock :</string>
+    <string name="CatID">Catergory :</string>
+    <string name="updateButton">You Sure?</string>
+
 
 </resources>

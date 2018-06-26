@@ -4,12 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="@drawable/booksbackground"
     tools:context=".BookDetails">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="378dp"
         android:layout_height="268dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:src="@android:drawable/ic_dialog_info"
@@ -26,20 +32,102 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/listBookView"
+            <TextView
+                android:id="@+id/title"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="311dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content"
+                android:text="@string/Title"
+                android:textStyle="bold" />
 
-            </ListView>
+            <EditText
+                android:editable="false"
+                android:id="@+id/titleInfo"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/author"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="311dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Author"
+                android:textStyle="bold" />
+
+            <EditText
+                android:editable="false"
+                android:id="@+id/authorInfo"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/isbn"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="311dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ISBN"
+                android:textStyle="bold" />
+
+            <EditText
+                android:editable="false"
+                android:id="@+id/isbnInfo"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/price"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="311dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Price"
+                android:textStyle="bold" />
+
+            <EditText
+                android:editable="false"
+                android:id="@+id/priceInfo"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/intro"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="311dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Intro"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/introInfo"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet,
+                etiam convallis morbi arcu eget blanditiis vel,
+                sagittis odio vivamus nulla at tristique."/>
+
+            <Button
+                android:visibility="invisible"
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/updateButton" />
 
         </LinearLayout>
     </ScrollView>

@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-
-import java.util.List;
 
 public class BookDetails extends Activity {
 
+    private String bookID;
+    private String isbn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,20 +24,20 @@ public class BookDetails extends Activity {
     public void setUpListView(){
 
         Intent i = getIntent();
-        String bookID = i.getStringExtra("BookID");
-        String isbn = i.getStringExtra("ISBN");
+        bookID = i.getStringExtra("BookID");
+        isbn = i.getStringExtra("ISBN");
 
-        new AsyncTask<String, Void, List<Book>>() {
+        new AsyncTask<String, Void, Book>() {
             @Override
-            protected List<Book> doInBackground(String... params) {
-                Book book = Book.getBook(params[0]);
-                return Book.bookList(book.get("Title"));
+            protected Book doInBackground(String... params) {
+                return Book.getBook(params[0]);
             }
             @Override
-            protected void onPostExecute(List<Book> result) {
-                BookDetailAdapter adapter = new BookDetailAdapter(BookDetails.this, R.layout.book_details_row, result);
-                ListView lv = (ListView) findViewById(R.id.listBookView);
-                lv.setAdapter(adapter);
+            protected void onPostExecute(Book result) {
+                setvalue("Title",R.id.titleInfo,result);
+                setvalue("Author",R.id.authorInfo,result);
+                setvalue("Price",R.id.priceInfo,result);
+                setvalue("ISBN",R.id.isbnInfo,result);
             }
         }.execute(bookID);
         new AsyncTask<String, Void,Bitmap>() {
@@ -49,8 +51,37 @@ public class BookDetails extends Activity {
                 image.setImageBitmap(result);
             }
         }.execute(isbn);
+    }
+    public void setvalue(String value,int a ,Book book) {
+        String bookDetail = book.get(value);
 
+        if (bookDetail != null) {
+            EditText e = (EditText) findViewById(a);
+            if (value == "Price") {
+                bookDetail = "S$ " + bookDetail;
+            }
+            e.setText(bookDetail);
+        }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit:
+                Intent i = new Intent(this,EditPage.class);
+                startActivity(i);
+                i.putExtra("BookID",this.bookID);
+                i.putExtra("ISBN",this.isbn);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

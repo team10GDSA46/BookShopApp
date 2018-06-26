@@ -18,8 +18,8 @@ import java.util.List;
 
 public class Book extends HashMap<String,String> {
 
-    final static String baseURL = "http://192.168.1.87/bookshop/Service1.svc/";
-    final static String imageURL = "http://192.168.1.87/bookshop/images/";
+    final static String baseURL = "http://172.17.145.178/bookshop/Service1.svc/";
+    final static String imageURL = "http://172.17.145.178/bookshop/images/";
 
     public Book(int BookID, int Stock, double Price, int CategoryID, String Title, String Author, String ISBN){
         put("BookID",String.valueOf(BookID));
