@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class JSONParser {
+
+    //Method to create connection
     public static String getStream(String url) {
         InputStream is = null;
         StringBuilder sb = new StringBuilder();
@@ -44,6 +46,7 @@ public class JSONParser {
         return(sb.toString());
     }
 
+    //Method to create JSON Object
     public static JSONObject getJSONFromUrl(String url) {
         JSONObject jObj = null;
         try {
@@ -54,6 +57,7 @@ public class JSONParser {
         return jObj;
     }
 
+    //Method to create an Array of JSON Object
     public static JSONArray getJSONArrayFromUrl(String url) {
         JSONArray jArray = null;
         try {

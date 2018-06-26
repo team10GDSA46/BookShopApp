@@ -19,6 +19,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     private EditText searchBoxText;
     @Override
+    /*  Create activity page
+        Set layout of mainactivity
+        Create an object for searchbox and set Text watcher to it
+        Create the list view object and set on item click listener to it
+     */
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -28,6 +34,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         ListView lv = (ListView) findViewById(R.id.listView1);
         lv.setOnItemClickListener(this);
     }
+
+    //Method for TextWatcher
     private final TextWatcher searchBoxWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -41,7 +49,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         @Override
         public void afterTextChanged(Editable editable) {
+            //Display the images based on the books found via title
             setUpListView(searchBoxText.getText().toString());
+
+            //To run the UI search on the background and UI display on the front using abstract method of AsyncTasking
+            //AsyncTask<[data type]input, [data type]progress, [data type]result>>
             new AsyncTask<String, Void, List<Book>>() {
                 @Override
                 protected List<Book> doInBackground(String... params) {
@@ -49,6 +61,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 }
                 @Override
                 protected void onPostExecute(List<Book> result) {
+                    //Make a Toast to inform user that no data found based on input
                     if (result.isEmpty()) {
                         Toast t = Toast.makeText(MainActivity.this, "No Books Found", Toast.LENGTH_SHORT);
                         t.show();
@@ -59,7 +72,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     };
 
     public void setUpListView(String searchtxt){
-        new AsyncTask<String, Void, List<Book>>() {
+            new AsyncTask<String, Void, List<Book>>() {
             @Override
             protected List<Book> doInBackground(String... params) {
                 return Book.bookList(params[0]);
@@ -73,6 +86,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         }.execute(searchtxt);
     }
 
+    /*  Set on click event select the object that is being click on and pass the
+        other information to the next activity via "key-value" pair
+     */
     @Override
     public void onItemClick(AdapterView<?> av, View v, int position, long id) {
         Book book = (Book) av.getAdapter().getItem(position);

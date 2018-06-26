@@ -13,17 +13,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/*
+    Adapter to place respective data to respective view need to pass a list of item into this adapter
+ */
+
 public class MyBookAdapter extends ArrayAdapter<Book> {
 
     private List<Book> items;
     int resource;
 
+    //Constructor
     public MyBookAdapter(Context context, int resource, List<Book> items) {
         super(context, resource, items);
         this.resource = resource;
         this.items = items;
     }
 
+    //View layout for the various data to pass into the view
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()

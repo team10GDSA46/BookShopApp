@@ -14,13 +14,16 @@ public class BookDetails extends Activity {
 
     private String bookID;
     private String isbn;
+
+    //Loading Layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_details);
+        super.onCreate(savedInstanceState);//Start of activity
+        setContentView(R.layout.activity_book_details); // Presenting which layout
         setUpListView();
     }
 
+    //Method to call Book object and map them to respective EditView
     public void setUpListView(){
 
         Intent i = getIntent();
@@ -52,6 +55,8 @@ public class BookDetails extends Activity {
             }
         }.execute(isbn);
     }
+
+    // A method to map data to the respective EditView called by setUpListView() this is to achieve method reusing
     public void setvalue(String value,int a ,Book book) {
         String bookDetail = book.get(value);
 
@@ -64,6 +69,7 @@ public class BookDetails extends Activity {
         }
     }
 
+    // A method to create a menu burger on the top-right of the app
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -71,6 +77,7 @@ public class BookDetails extends Activity {
         return true;
     }
 
+    // A method to create an action once the item on the menu is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

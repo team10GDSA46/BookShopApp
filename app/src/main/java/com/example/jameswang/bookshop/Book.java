@@ -21,6 +21,7 @@ public class Book extends HashMap<String,String> {
     final static String baseURL = "http://172.17.145.178/bookshop/Service1.svc/";
     final static String imageURL = "http://172.17.145.178/bookshop/images/";
 
+    //Constructor and Key-value pair
     public Book(int BookID, int Stock, double Price, int CategoryID, String Title, String Author, String ISBN){
         put("BookID",String.valueOf(BookID));
         put("Stock",String.valueOf(Stock));
@@ -31,15 +32,16 @@ public class Book extends HashMap<String,String> {
         put("ISBN",ISBN);
     }
 
+    //Constructor with JsonObject Parameter
     public Book(JSONObject b) throws JSONException
     {
         this(b.getInt("BookID"), b.getInt("Stock"),
                 b.getDouble("Price"), b.getInt("CatID"),
                 b.getString("Title"), b.getString("Author"),
                 b.getString("ISBN"));
-
     }
 
+    //Method to get List of Book IDs in String format
     public static List<String> list() {
         List<String> list = new ArrayList<String>();
         JSONArray a = JSONParser.getJSONArrayFromUrl(baseURL + "Books");
@@ -52,6 +54,8 @@ public class Book extends HashMap<String,String> {
         }
         return(list);
     }
+
+    //Method to get Book object with bookID
     public static Book getBook(String eid) {
         JSONObject b = JSONParser.getJSONFromUrl(baseURL + "Book/" + eid);
         try {
@@ -62,6 +66,7 @@ public class Book extends HashMap<String,String> {
         return(null);
     }
 
+    //Method to get List of Book object with searchText via Title
     public static List<Book> bookList(String searchText) {
         List<Book> list = new ArrayList<Book>();
         JSONArray c;
@@ -85,6 +90,7 @@ public class Book extends HashMap<String,String> {
         return(list);
     }
 
+    //Method to get image of book with ISBN
     public static Bitmap getPhoto(String ISBN) {
         try {
             URL url = new URL(String.format("%s%s.jpg",imageURL, ISBN));
